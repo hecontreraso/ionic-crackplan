@@ -8,10 +8,14 @@
 angular.module('crackplan',
   [
     'ionic',
-    'crackplan.controllers',
+    'AppController',
+    'LoginController',
     'EventsController',
+    'OptionsController',
+    'EditProfileController',
+    'ChangePasswordController',
     'crackplan.services',
-    // 'crackplan.login',
+    'LoginService',
     // 'ngMockE2E',
     'ngOpenFB'
   ]
@@ -29,6 +33,18 @@ angular.module('crackplan',
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
+    }
+  });
+})
+
+.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+  
+    if (!AuthService.isAuthenticated()) {
+      if (next.name !== 'login') {
+        event.preventDefault();
+        $state.go('login');
+      }
     }
   });
 })
@@ -67,7 +83,6 @@ angular.module('crackplan',
       }
     }
   })
-
   .state('tab.chats', {
     url: '/chats',
     views: {
@@ -86,17 +101,26 @@ angular.module('crackplan',
       }
     }
   })
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.options', {
+    url: '/options',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-options': {
+        templateUrl: 'templates/tab-options.html',
+        controller: 'OptionsCtrl'
       }
     }
+  })
+  .state('edit-profile', {
+    url: '/edit-profile',
+    templateUrl: 'templates/edit-profile.html',
+    controller: 'EditProfileCtrl'
+  })
+  .state('change-password', {
+    url: '/change-password',
+    templateUrl: 'templates/change-password.html',
+    controller: 'ChangePasswordCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
-
 });

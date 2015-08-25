@@ -1,0 +1,45 @@
+<ion-view view-title="Edit profile">
+	<ion-nav-buttons side="left">
+  	<a class="button icon-left" nav-transition="android" href="#/tab/options">Back</a>
+   </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+
+	    <label class="item item-input">
+        <i class="icon ion-android-person placeholder-icon"></i>
+        <input type="text" placeholder="Name" ng-model="user.name">
+      </label>
+
+	    <label class="item item-input">
+        <i class="icon ion-chatbox-working placeholder-icon"></i>
+        <textarea placeholder="Bio" ng-model="user.bio"></textarea>
+      </label>
+
+			<div class="item item-divider">
+		    Private information
+		  </div>
+	    <label class="item item-input">
+        <i class="icon ion-ios-email placeholder-icon"></i>
+      </label>
+
+      <label class="item item-input">
+        <i class="icon ion-calendar placeholder-icon"></i>
+        <input type="date" placeholder="Birthdate" ng-model="user.birthdate">
+			</label>
+
+			<label class="item item-input item-select">
+        <i class="icon ion-calendar placeholder-icon"></i>
+		    <div class="input-label">
+	        &nbsp;
+		    </div>
+		    <select>
+	        <option selected>Not specified</option>
+	        <option >Male</option>
+	        <option>Female</option>
+		    </select>
+			</label>
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>
