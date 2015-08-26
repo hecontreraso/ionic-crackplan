@@ -1,30 +1,39 @@
 angular.module('LoginService', [])
  
 .service('AuthService', function($q, $http, SERVER_URL) {
-  var LOCAL_TOKEN_KEY = '';
+  var AUTH_TOKEN = '';
   var email = '';
+  var name = '';
+  var birthdate = '';
+  var gender = '';
+  var is_private = '';
+  var bio = '';
+
   var isAuthenticated = false;
-  var authToken;
  
   function loadUserCredentials() {
-    var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
+    var token = window.localStorage.getItem(AUTH_TOKEN);
     if (token) {
       useCredentials(token);
     }
   }
  
-  function storeUserCredentials(token) {
-    window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
-    useCredentials(token);
+  function storeUserCredentials(data) {
+    window.localStorage.setItem(AUTH_TOKEN, data.auth_token);
+    
+    email = data.email;
+    name = data.name;
+    birthdate = data.birthdate;
+    gender = data.gender;
+    is_private = data.is_private;
+    bio = data.bio;
   }
  
   function useCredentials(token) {
-    email = token.split('.')[0];
-    isAuthenticated = true;
-    authToken = token;
-  
+    isAuthenticated = true;    
+
     // Set the token as header for your requests!
-    $http.defaults.headers.common['X-Auth-Token'] = token;
+    $http.defaults.headers.common['Authorization'] = 'Token token=' + token;
   }
  
   var login = function(email, pw) {
@@ -36,7 +45,8 @@ angular.module('LoginService', [])
         }
       )
       .success(function(data){
-        storeUserCredentials(email + '.' + data.auth_token);
+        console.log(data);
+        storeUserCredentials(data);
         resolve('Login success.');
       })
       .error(function(){
@@ -46,11 +56,17 @@ angular.module('LoginService', [])
   };
  
   var logout = function() {
-    authToken = undefined;
+    AUTH_TOKEN = '';
     email = '';
+    name = '';
+    birthdate = '';
+    gender = '';
+    is_private = '';
+    bio = '';
+
     isAuthenticated = false;
-    $http.defaults.headers.common['X-Auth-Token'] = undefined;
-    window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+    $http.defaults.headers.common['Authorization'] = undefined;
+    window.localStorage.clear();
   };
  
   loadUserCredentials();
@@ -60,7 +76,11 @@ angular.module('LoginService', [])
     logout: logout,
     isAuthenticated: function() {return isAuthenticated;},
     email: function() {return email;},
-    role: function() {return role;}
+    name: function() {return name;},
+    birthdate: function() {return birthdate;},
+    gender: function() {return gender;},
+    is_private: function() {return is_private;},
+    bio: function() {return bio;}
   };
 })
 
