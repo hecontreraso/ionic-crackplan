@@ -16,7 +16,6 @@ angular.module('crackplan',
     'ChangePasswordController',
     'crackplan.services',
     'LoginService',
-    // 'ngMockE2E',
     'ngOpenFB'
   ]
 )
@@ -38,7 +37,7 @@ angular.module('crackplan',
 })
 
 .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
-  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+  $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
   
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'login') {
@@ -121,6 +120,10 @@ angular.module('crackplan',
     controller: 'ChangePasswordCtrl'
   });
 
+  // $urlRouterProvider.otherwise('/tab/dash');
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise(function ($injector, $location) {
+    var $state = $injector.get("$state");
+    $state.go("tab.dash");
+  });
 });

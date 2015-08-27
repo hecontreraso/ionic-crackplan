@@ -11,8 +11,9 @@ angular.module('AppController', [])
       template: 'Sorry, You have to login again.'
     });
   });
-  $scope.setCurrentEmail = function(name) {
-    $scope.email = name;
+
+  $scope.setCurrentEmail = function(email) {
+    $scope.email = email;
   };
 })
 

@@ -2,10 +2,6 @@ angular.module('ChangePasswordController', [])
 
 .controller('ChangePasswordCtrl', function($scope, $state, $http, $ionicPopup, AuthService, SERVER_URL) {
 
-  $scope.settings = {
-    enableFriends: true
-  };
-
   $scope.changePassword = function(user){
   	if(user.newPw  !== user.newPwConfirmation){
 	    var alertPopup = $ionicPopup.alert({
@@ -14,9 +10,7 @@ angular.module('ChangePasswordController', [])
 	    });
   	}
   	$http.post(SERVER_URL + '/change_password',
-  		{
-  			password: user.newPw, newPwConfirmation: user.newPwConfirmation
-  		}
+  		{ password: user.oldPw, new_password: user.newPw }
   	)
   	.success(function(){
 	    var alertPopup = $ionicPopup.alert({
