@@ -9,7 +9,7 @@ angular.module('LoginService', [])
   // var bio = '';
 
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
-  var email = '';
+  var user = {};
   var isAuthenticated = false;
   var authToken;
 
@@ -27,7 +27,7 @@ angular.module('LoginService', [])
   }
  
   function useCredentials(data) {
-    email = data.email;
+    user.email = data.email;
     isAuthenticated = true;
     authToken = data.auth_token;
  
@@ -37,7 +37,7 @@ angular.module('LoginService', [])
 
   function destroyUserCredentials() {
     authToken = undefined;
-    email = '';
+    user = {};
     isAuthenticated = false;
     $http.defaults.headers.common.Authorization = undefined;
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
@@ -49,7 +49,6 @@ angular.module('LoginService', [])
       $http.post(SERVER_URL + '/login', { email: email, password: pw })
       .success(function(data){
         storeUserCredentials(data);
-        // storeUserCredentials(name + '.yourServerToken');
         resolve('Login success.');
       })
       .error(function(){
@@ -68,12 +67,7 @@ angular.module('LoginService', [])
     login: login,
     logout: logout,
     isAuthenticated: function() {return isAuthenticated;},
-    email: function() {return email;}
-    // name: function() {return name;},
-    // birthdate: function() {return birthdate;},
-    // gender: function() {return gender;},
-    // is_private: function() {return is_private;},
-    // bio: function() {return bio;}
+    user: function() {return user;}
   };
 })
 

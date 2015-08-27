@@ -1,7 +1,7 @@
 angular.module('AppController', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
-  $scope.email = AuthService.email();
+  $scope.user = AuthService.user();
  
   $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
     AuthService.logout();
@@ -12,8 +12,8 @@ angular.module('AppController', [])
     });
   });
 
-  $scope.setCurrentEmail = function(email) {
-    $scope.email = email;
+  $scope.setCurrentUser = function(user) {
+    $scope.user = user;
   };
 })
 
