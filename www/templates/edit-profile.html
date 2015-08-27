@@ -7,7 +7,7 @@
 
 	    <label class="item item-input">
         <i class="icon ion-android-person placeholder-icon"></i>
-        <input type="text" placeholder="Name" ng-model="user.name">
+        <input type="text" placeholder="Name" ng-model="user.fullName">
       </label>
 
 	    <label class="item item-input">
@@ -20,6 +20,7 @@
 		  </div>
 	    <label class="item item-input">
         <i class="icon ion-ios-email placeholder-icon"></i>
+        <input type="email" placeholder="Email" ng-model="user.email">
       </label>
 
       <label class="item item-input">
@@ -38,8 +39,9 @@
 	        <option>Female</option>
 		    </select>
 			</label>
-
-
+      <button class="button button-block button-positive" ng-click="saveProfile(user)">
+        Update profile
+      </button>
     </ion-list>
   </ion-content>
 </ion-view>

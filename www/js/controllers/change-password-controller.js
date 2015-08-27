@@ -3,9 +3,11 @@ angular.module('ChangePasswordController', [])
 .controller('ChangePasswordCtrl', function($scope, $state, $http, $ionicPopup, AuthService, SERVER_URL) {
 
   $scope.$on("$ionicView.beforeEnter", function(event) {
-    $scope.user.oldPw = '';
-    $scope.user.newPw = '';
-    $scope.user.newPwConfirmation = '';
+    $scope.user = {
+      oldPw: '',
+      newPw: '',
+      newPwConfirmation: ''
+    };
   });
 
   $scope.changePassword = function(user){
@@ -19,9 +21,11 @@ angular.module('ChangePasswordController', [])
       { password: user.oldPw, new_password: user.newPw }
     )
     .success(function(){
-      user.oldPw = '';
-      user.newPw = '';
-      user.newPwConfirmation = '';
+      $scope.user = {
+        oldPw: '',
+        newPw: '',
+        newPwConfirmation: ''
+      };
 
       var alertPopup = $ionicPopup.alert({
         title: 'Success!',

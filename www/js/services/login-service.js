@@ -1,12 +1,6 @@
 angular.module('LoginService', [])
  
 .service('AuthService', function($q, $http, SERVER_URL) {
-  // var email = '';
-  // var name = '';
-  // var birthdate = '';
-  // var gender = '';
-  // var is_private = '';
-  // var bio = '';
 
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var user = {};
@@ -28,11 +22,18 @@ angular.module('LoginService', [])
  
   function useCredentials(data) {
     user.email = data.email;
+    user.fullName = data.fullName;
+    user.birthdate = data.birthdate;
+    user.gender = data.gender;
+    user.is_private = data.is_private;
+    user.bio = data.bio;
+
     isAuthenticated = true;
     authToken = data.auth_token;
  
     // Set the token as header for your requests!
     $http.defaults.headers.common.Authorization = 'Token token=' + data.auth_token;
+    $http.defaults.headers.common['Access-Control-Allow-Origin'] = 'api.crackplan.com'
   }
 
   function destroyUserCredentials() {
