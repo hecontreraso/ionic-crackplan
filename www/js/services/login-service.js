@@ -2,11 +2,12 @@ angular.module('LoginService', [])
  
 .service('AuthService', function($q, $http, SERVER_URL) {
 
+  console.log("Variables initialized to empty");
+
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var user = {};
   var isAuthenticated = false;
   var authToken;
-
  
   function loadUserCredentials() {
     var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
@@ -23,7 +24,7 @@ angular.module('LoginService', [])
   function useCredentials(data) {
     user.email = data.email;
     user.fullName = data.fullName;
-    user.birthdate = data.birthdate;
+    user.birthdate = new Date(data.birthdate);
     user.gender = data.gender;
     user.is_private = data.is_private;
     user.bio = data.bio;
@@ -33,7 +34,6 @@ angular.module('LoginService', [])
  
     // Set the token as header for your requests!
     $http.defaults.headers.common.Authorization = 'Token token=' + data.auth_token;
-    $http.defaults.headers.common['Access-Control-Allow-Origin'] = 'api.crackplan.com'
   }
 
   function destroyUserCredentials() {

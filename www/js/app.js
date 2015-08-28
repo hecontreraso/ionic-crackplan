@@ -48,10 +48,6 @@ angular.module('crackplan',
   });
 })
 
-// .run(function($httpBackend){
-//   $httpBackend.whenGET(/templates\/\w+.*/).passThrough();
-// })
-
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states

@@ -31,10 +31,10 @@
 		    Change password
 		    <i class="icon ion-ios-arrow-right"></i>
 		  </a>
-	    <ion-toggle ng-model="settings.private">
+	    <ion-toggle ng-model="currentUser.is_private" ng-change="changePrivacy()">
         Private account
 	    </ion-toggle>
-    	<button class="button button-block button-positive" ng-click="logout()">
+    	<button class="button button-block button-positive" ng-click="logout(currentUser)">
 			  Log out
 			</button>
     </ion-list>
