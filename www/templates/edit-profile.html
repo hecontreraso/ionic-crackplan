@@ -1,10 +1,13 @@
 <ion-view view-title="Edit profile">
-	<ion-nav-buttons side="left">
-  	<a class="button icon-left" nav-transition="android" href="#/tab/options">Back</a>
-   </ion-nav-buttons>
+
+  <ion-nav-bar class="bar-positive"> 
+  	<ion-nav-buttons side="left">
+    	<a class="button icon-left" nav-transition="android" href="#/tab/options">Back</a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
   <ion-content padding="true">
     <ion-list>
-
 	    <label class="item item-input">
         <i class="icon ion-android-person placeholder-icon"></i>
         <input type="text" placeholder="Name" ng-model="currentUser.fullName">
