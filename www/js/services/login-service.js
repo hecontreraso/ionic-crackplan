@@ -2,8 +2,6 @@ angular.module('LoginService', [])
  
 .service('AuthService', function($q, $http, SERVER_URL) {
 
-  console.log("Variables initialized to empty");
-
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var user = {};
   var isAuthenticated = false;

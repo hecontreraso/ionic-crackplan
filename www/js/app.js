@@ -16,6 +16,7 @@ angular.module('crackplan',
     'ChangePasswordController',
     'crackplan.services',
     'LoginService',
+    'EventService',
     'ngOpenFB'
   ]
 )
@@ -72,8 +73,8 @@ angular.module('crackplan',
   .state('tab.dash', {
     url: '/dash',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
+      'tab-feed': {
+        templateUrl: 'templates/tab-feed.html',
         controller: 'EventsCtrl'
       }
     }
