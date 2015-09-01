@@ -7,8 +7,7 @@
     <ion-list>
       <ion-item class="no-padding card" ng-repeat="event in events">
         <div class="item item-avatar event-header-text-container">
-          <img ng-if="event.feed_creator.image" ng-src="{{event.feed_creator.image}}">
-          <img ng-if="!event.feed_creator.image" ng-src="../img/profile_missing.png">
+          <img ng-src="{{event.feed_creator.image}}">
           <span class="event-feed-creator">
             <a ng-href="#/profile/{{event.feed_creator.id}}">
               {{event.feed_creator.name}}
@@ -17,15 +16,34 @@
           <span class="event-time-ago">{{event.hours_ago}}</span>
         </div>
 
-        <img ng-if="event.image" ng-src="{{event.image}}">
-        <img ng-if="!event.image" class="full-image" ng-src="../img/event_missing.jpg">
+        <img ng-src="{{event.image}}">
 
         <div class="item-body">
           <p>{{event.details}}</p>
           <span class="event-details">
-            <a href="">Esteban Contreras</a> is going</span><br>
+
+            <div ng-if="event.assistants.length == 1">
+              <a href='#'>{{event.assistants[0].name}}</a> is going              
+            </div>
+            <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
+              <span ng-repeat="assistant in event.all_but_last_two_assistants">
+                <a href='#'>{{assistant.name}}</a>, 
+              </span>
+              <a href='#'>{{event.last_two_assistants[0].name}}</a>
+              and
+              <a href='#'>{{event.last_two_assistants[1].name}}</a>
+              are going       
+            </div>
+            <div ng-if="event.assistants.length > limit_assistants_shown">
+              <span ng-repeat="assistant in event.showed_assistants">
+                <a href='#'>{{assistant.name}}</a>, 
+              </span>
+              and {{event.hidden_assistants_qty}} more are going
+            </div>
+
+            <br>
           <span class="event-details">
-            {{event.where}} | {{event.date}} at {{event.hour}}
+            {{event.where}} | {{event.date | date:'MMM dd' }} <time ng-show="event.time">at {{event.time | date:'hh:mm a'}}</time>
           </span>
           <br>
           <span class="event-details">
@@ -33,10 +51,9 @@
         </div>
 
         <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" ng-click="toggle_assistance(event)">
+          <a class="tab-item" ng-click="toggleAssistance(event)">
             <i class="icon ion-beer"></i>
-            <span ng-show="{{event.user_is_going}}">Going</span>
-            <span ng-hide="{{event.user_is_going}}">Join</span>
+            <span>{{event.going_or_join_label}}</span>
           </a>
 <!--           <a class="tab-item" href="#">
             <i class="icon ion-chatbox"></i>
