@@ -1,0 +1,43 @@
+<ion-view view-title="Add event">
+
+  <ion-nav-bar class="bar-positive"> 
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <ion-list>
+      <label class="item item-input">
+        <textarea placeholder="Event description" ng-model="event.details"></textarea>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Date</span>
+        <input type="date" ng-model="event.date">
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Time
+        </div>
+        <select ng-model="event.time" ng-options="hour for hour in hours">
+        </select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Location</span>
+        <input type="text" ng-model="event.where">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Image</span>
+        <button class="button button-block button-positive" ng-click="addMedia()">
+        Add image
+        </button>
+      </label>
+
+      <button class="button button-block button-positive" ng-click="createEvent(event)">
+        Update profile
+      </button>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

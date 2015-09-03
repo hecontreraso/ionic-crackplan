@@ -20,6 +20,7 @@ angular.module('LoginService', [])
   }
  
   function useCredentials(data) {
+    user.id = data.id;
     user.email = data.email;
     user.fullName = data.fullName;
     user.birthdate = new Date(data.birthdate);

@@ -1,0 +1,97 @@
+<ion-view view-title="Profile">
+
+  <ion-nav-bar class="bar-positive"> 
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <a class="item item-avatar" href="#">
+      <img ng-src="{{user_info.image}}">
+      <h2>{{user_info.name}}</h2>
+      <a ng-if="is_same_profile" class="button icon-left" nav-transition="android" href="#/edit-profile">Edit profile</a>
+
+<!--       <button  class="button button-small button-assertive">
+        
+      </button> -->
+      <button ng-if="!is_same_profile" class="button button-small button-assertive">
+        Follow
+      </button>
+    </a>
+
+    <div class="card">
+      <div ng-if="user_info.bio" class="item item-text-wrap">
+        <p>{{user_info.bio}}</p>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+          <span class="profile-big-number">{{user_info.events_qty}}</span>
+          <br>
+          Events
+        </div>
+        <div class="col">
+          <span class="profile-big-number">{{user_info.followers_qty}}</span>
+          <br>
+          followers
+        </div>
+        <div class="col">
+          <span class="profile-big-number">{{user_info.following_qty}}</span>
+          <br>
+          following
+        </div>
+      </div>
+    </div>
+
+    <ion-list>
+      <ion-item class="no-padding card" ng-repeat="event in events">
+        <img ng-src="{{event.image}}">
+
+        <div class="item-body">
+          <p>{{event.details}}</p>
+          <span class="event-details">
+
+            <div ng-if="event.assistants.length == 1">
+              <a href='#'>{{event.assistants[0].name}}</a> is going              
+            </div>
+            <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
+              <span ng-repeat="assistant in event.all_but_last_two_assistants">
+                <a href='#'>{{assistant.name}}</a>, 
+              </span>
+              <a href='#'>{{event.last_two_assistants[0].name}}</a>
+              and
+              <a href='#'>{{event.last_two_assistants[1].name}}</a>
+              are going       
+            </div>
+            <div ng-if="event.assistants.length > limit_assistants_shown">
+              <span ng-repeat="assistant in event.showed_assistants">
+                <a href='#'>{{assistant.name}}</a>, 
+              </span>
+              and {{event.hidden_assistants_qty}} more are going
+            </div>
+
+            <br>
+          <span class="event-details">
+            {{event.where}} | {{event.date | date:'MMM dd' }} <time ng-show="event.time">at {{event.time | date:'hh:mm a'}}</time>
+          </span>
+          <br>
+          <span class="event-details">
+            Event by <a ng-href="#/profile/{{event.feed_creator.id}}">{{event.creator.name}}</a></span>
+        </div>
+
+        <div ng-if="!is_same_profile" class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" ng-click="toggleAssistance(event)">
+            <i class="icon ion-beer"></i>
+            <span>{{event.going_or_join_label}}</span>
+          </a>
+<!--           <a class="tab-item" href="#">
+            <i class="icon ion-chatbox"></i>
+            Comment
+          </a> -->
+<!--           <a class="tab-item" href="#">
+            <i class="icon ion-share"></i>
+            Share
+          </a> -->
+        </div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

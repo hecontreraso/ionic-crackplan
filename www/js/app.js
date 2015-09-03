@@ -11,12 +11,15 @@ angular.module('crackplan',
     'AppController',
     'LoginController',
     'EventsController',
+    'ProfileController',
+    'AddEventController',
     'OptionsController',
     'EditProfileController',
     'ChangePasswordController',
     'crackplan.services',
     'LoginService',
     'EventService',
+    'ProfileService',
     'ngOpenFB'
   ]
 )
@@ -39,7 +42,6 @@ angular.module('crackplan',
 
 .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
   $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
-  
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'login') {
         event.preventDefault();
@@ -79,21 +81,21 @@ angular.module('crackplan',
       }
     }
   })
-  .state('tab.chats', {
-    url: '/chats',
+  .state('tab.profile', {
+    url: '/profile/:userId',
     views: {
-      'tab-chats': {
-        templateUrl: 'templates/tab-chats.html',
-        controller: 'ChatsCtrl'
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile.html',
+        controller: 'ProfileCtrl'
       }
     }
   })
-  .state('tab.chat-detail', {
-    url: '/chats/:chatId',
+  .state('tab.add-event', {
+    url: '/add-event',
     views: {
-      'tab-chats': {
-        templateUrl: 'templates/chat-detail.html',
-        controller: 'ChatDetailCtrl'
+      'tab-add-event': {
+        templateUrl: 'templates/add-event.html',
+        controller: 'AddEventCtrl'
       }
     }
   })

@@ -6,11 +6,11 @@ angular.module('EditProfileController', [])
   	console.log(user);
     $http.patch(SERVER_URL + '/edit_profile', 
       {
-        email: $scope.currentUser.email,
-        name: $scope.currentUser.fullName,
-        birthdate: $scope.currentUser.birthdate,
-        gender: $scope.currentUser.gender,
-        bio: $scope.currentUser.bio
+        email: user.email,
+        name: user.fullName,
+        birthdate: user.birthdate,
+        gender: user.gender,
+        bio: user.bio
       }
     )
     .success(function(){
