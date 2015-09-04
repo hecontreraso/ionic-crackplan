@@ -1,4 +1,4 @@
-angular.module('LoginController', [])
+angular.module('LoginController', ['LoginService'])
 
 .controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
   $scope.data = {};

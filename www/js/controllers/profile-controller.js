@@ -1,21 +1,28 @@
-angular.module('ProfileController', [])
+angular.module('ProfileController', ['ProfileService'])
 
-.controller('ProfileCtrl', function($scope, $http, $timeout, $stateParams, ProfileService) {
+.controller('ProfileCtrl', function($scope, $http, $timeout, $stateParams, ProfileService, EventService) {
 
 	console.log("user ID: " + $stateParams.userId);
-	
+	$scope.limit_assistants_shown = 5;
+	$scope.is_private = false;
+
 	ProfileService.getProfileData($stateParams.userId).then(function(data){
 		$scope.user_info = formatUserData(data.profile_data);
-		$scope.events = formatEvents(data.events);
+		if(data.events === "private"){
+			$scope.is_private = true;
+		}
+		else{
+			$scope.events = formatEvents(data.events);
+		}
+
+		console.log($scope.user_info);
 	});
 
 	function formatUserData(user){
 		if(user.image === null){
 			user.image = '../img/profile_missing.png';
 		}
-
 		$scope.is_same_profile = ($scope.currentUser.id == $stateParams.userId) ? true : false;
-
 		return user;
 	}
 
@@ -36,5 +43,20 @@ angular.module('ProfileController', [])
 	    // event.hidden_assistants = event.assistants.slice(limit_assistants_shown, total_assistants - $scope.limit_assistants_shown);
 		});
 		return events;
+	}
+
+	function formatUserData(user){
+		if(user.image === null){
+			user.image = '../img/profile_missing.png';
+		}
+		$scope.is_same_profile = ($scope.currentUser.id == $stateParams.userId) ? true : false;
+		return user;
+	}
+
+	$scope.toggleAssistance = function(event){
+		EventService.toggleAssistance(event).then(function(user_is_going){
+			event.user_is_going = user_is_going;
+			event.going_or_join_label = event.user_is_going ? 'Going' : 'Join';
+		});
 	}
 });

@@ -17,9 +17,6 @@ angular.module('crackplan',
     'EditProfileController',
     'ChangePasswordController',
     'crackplan.services',
-    'LoginService',
-    'EventService',
-    'ProfileService',
     'ngOpenFB'
   ]
 )

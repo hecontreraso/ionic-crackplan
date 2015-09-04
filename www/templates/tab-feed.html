@@ -9,7 +9,7 @@
         <div class="item item-avatar event-header-text-container">
           <img ng-src="{{event.feed_creator.image}}">
           <span class="event-feed-creator">
-            <a ng-href="#/profile/{{event.feed_creator.id}}">
+            <a ng-href="#/tab/profile/{{event.feed_creator.id}}">
               {{event.feed_creator.name}}
             </a>
           </span>
@@ -23,20 +23,20 @@
           <span class="event-details">
 
             <div ng-if="event.assistants.length == 1">
-              <a href='#'>{{event.assistants[0].name}}</a> is going              
+              <a href='#/tab/profile/{{event.assistants[0].id}}'>{{event.assistants[0].name}}</a> is going              
             </div>
             <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
               <span ng-repeat="assistant in event.all_but_last_two_assistants">
-                <a href='#'>{{assistant.name}}</a>, 
+                <a href='#/tab/profile/{{assistant.id}}'>{{assistant.name}}</a>, 
               </span>
-              <a href='#'>{{event.last_two_assistants[0].name}}</a>
+              <a href='#/tab/profile/{{event.last_two_assistants[0].id}}'>{{event.last_two_assistants[0].name}}</a>
               and
-              <a href='#'>{{event.last_two_assistants[1].name}}</a>
+              <a href='#/tab/profile/{{event.last_two_assistants[1].id}}'>{{event.last_two_assistants[1].name}}</a>
               are going       
             </div>
             <div ng-if="event.assistants.length > limit_assistants_shown">
               <span ng-repeat="assistant in event.showed_assistants">
-                <a href='#'>{{assistant.name}}</a>, 
+                <a href='#/tab/profile/{{assistant.id}}'>{{assistant.name}}</a>, 
               </span>
               and {{event.hidden_assistants_qty}} more are going
             </div>

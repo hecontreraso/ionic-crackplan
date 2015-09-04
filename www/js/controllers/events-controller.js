@@ -1,4 +1,4 @@
-angular.module('EventsController', [])
+angular.module('EventsController', ['EventService'])
 
 .controller('EventsCtrl', function($scope, $http, $timeout, EventService) {
 	$scope.events = [];

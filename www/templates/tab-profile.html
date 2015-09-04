@@ -8,13 +8,7 @@
       <img ng-src="{{user_info.image}}">
       <h2>{{user_info.name}}</h2>
       <a ng-if="is_same_profile" class="button icon-left" nav-transition="android" href="#/edit-profile">Edit profile</a>
-
-<!--       <button  class="button button-small button-assertive">
-        
-      </button> -->
-      <button ng-if="!is_same_profile" class="button button-small button-assertive">
-        Follow
-      </button>
+      <a ng-if="!is_same_profile" class="button icon-left" nav-transition="android">Follow</a>
     </a>
 
     <div class="card">
@@ -47,17 +41,16 @@
         <div class="item-body">
           <p>{{event.details}}</p>
           <span class="event-details">
-
             <div ng-if="event.assistants.length == 1">
-              <a href='#'>{{event.assistants[0].name}}</a> is going              
+              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.assistants[0].name}}</a> is going              
             </div>
             <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
               <span ng-repeat="assistant in event.all_but_last_two_assistants">
-                <a href='#'>{{assistant.name}}</a>, 
+                <a href='#/tab/profile/{{event.feed_creator.id}}'>{{assistant.name}}</a>, 
               </span>
-              <a href='#'>{{event.last_two_assistants[0].name}}</a>
+              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.last_two_assistants[0].name}}</a>
               and
-              <a href='#'>{{event.last_two_assistants[1].name}}</a>
+              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.last_two_assistants[1].name}}</a>
               are going       
             </div>
             <div ng-if="event.assistants.length > limit_assistants_shown">
