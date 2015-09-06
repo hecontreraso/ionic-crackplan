@@ -4,11 +4,12 @@
   </ion-nav-bar>
 
   <ion-content padding="true">
+
     <a class="item item-avatar" href="#">
       <img ng-src="{{user_info.image}}">
       <h2>{{user_info.name}}</h2>
       <a ng-if="is_same_profile" class="button icon-left" nav-transition="android" href="#/edit-profile">Edit profile</a>
-      <a ng-if="!is_same_profile" class="button icon-left" nav-transition="android">Follow</a>
+      <a ng-if="!is_same_profile" class="button icon-left" nav-transition="android" ng-click="toggleFollow()">{{user_info.status}}</a>
     </a>
 
     <div class="card">
@@ -34,7 +35,18 @@
       </div>
     </div>
 
-    <ion-list>
+    <div class="card text-center" ng-if="user_info.can_see_events == false">
+      <div ng-if="user_info.bio" class="item item-text-wrap">
+        <p>{{user_info.bio}}</p>
+      </div>
+      <img ng-src="/img/lock.png" class="profile-img-lock">
+      <br>
+      <span>This account is private</span>
+      <p>Request to follow {{user_info.name}} to see his events</p>
+    </div>
+
+
+    <ion-list ng-if="user_info.can_see_events">
       <ion-item class="no-padding card" ng-repeat="event in events">
         <img ng-src="{{event.image}}">
 
@@ -42,20 +54,20 @@
           <p>{{event.details}}</p>
           <span class="event-details">
             <div ng-if="event.assistants.length == 1">
-              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.assistants[0].name}}</a> is going              
+              <a href='#/tab/profile/{{assistant.id}}'>{{event.assistants[0].name}}</a> is going              
             </div>
             <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
               <span ng-repeat="assistant in event.all_but_last_two_assistants">
-                <a href='#/tab/profile/{{event.feed_creator.id}}'>{{assistant.name}}</a>, 
+                <a href='#/tab/profile/{{assistant.id}}'>{{assistant.name}}</a>, 
               </span>
-              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.last_two_assistants[0].name}}</a>
+              <a href='#/tab/profile/{{last_two_assistants[0].id}}'>{{event.last_two_assistants[0].name}}</a>
               and
-              <a href='#/tab/profile/{{event.feed_creator.id}}'>{{event.last_two_assistants[1].name}}</a>
+              <a href='#/tab/profile/{{last_two_assistants[1].id}}'>{{event.last_two_assistants[1].name}}</a>
               are going       
             </div>
             <div ng-if="event.assistants.length > limit_assistants_shown">
               <span ng-repeat="assistant in event.showed_assistants">
-                <a href='#'>{{assistant.name}}</a>, 
+                <a href='#/tab/profile/{{assistant.id}}'>{{assistant.name}}</a>, 
               </span>
               and {{event.hidden_assistants_qty}} more are going
             </div>
@@ -64,9 +76,6 @@
           <span class="event-details">
             {{event.where}} | {{event.date | date:'MMM dd' }} <time ng-show="event.time">at {{event.time | date:'hh:mm a'}}</time>
           </span>
-          <br>
-          <span class="event-details">
-            Event by <a ng-href="#/profile/{{event.feed_creator.id}}">{{event.creator.name}}</a></span>
         </div>
 
         <div ng-if="!is_same_profile" class="item tabs tabs-secondary tabs-icon-left">

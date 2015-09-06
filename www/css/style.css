@@ -8,3 +8,27 @@
 
 
 .profile-big-number{ font-size: 30px; }
+.profile-img-lock{
+	margin: auto;
+	width: 70px;
+	height: 70px;
+}
+
+.notifications-item-nofitication{
+  padding-left: 72px;
+  padding-right: 72px;
+  min-height: 72px;
+}
+.img-notification{
+  position: absolute;
+  top: 16px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
+}
+.img-user{
+	left: 16px;
+  border-radius: 50%;
+}
+.img-event{ right: 16px; }

@@ -23,6 +23,13 @@ angular.module('ProfileController', ['ProfileService'])
 			user.image = '../img/profile_missing.png';
 		}
 		$scope.is_same_profile = ($scope.currentUser.id == $stateParams.userId) ? true : false;
+
+		if(user.status == "unfollowed"){
+			user.status = "follow";
+		}
+		if(user.status){
+		  user.status = user.status.charAt(0).toUpperCase() + user.status.slice(1);
+		}
 		return user;
 	}
 
@@ -31,7 +38,6 @@ angular.module('ProfileController', ['ProfileService'])
 			if(event.image === null){
 				event.image = '../img/event_missing.jpg';
 			}
-
 			event.going_or_join_label = event.user_is_going ? 'Going' : 'Join';
 
 			var total_assistants = event.assistants.length;
@@ -45,18 +51,23 @@ angular.module('ProfileController', ['ProfileService'])
 		return events;
 	}
 
-	function formatUserData(user){
-		if(user.image === null){
-			user.image = '../img/profile_missing.png';
-		}
-		$scope.is_same_profile = ($scope.currentUser.id == $stateParams.userId) ? true : false;
-		return user;
-	}
-
 	$scope.toggleAssistance = function(event){
 		EventService.toggleAssistance(event).then(function(user_is_going){
 			event.user_is_going = user_is_going;
 			event.going_or_join_label = event.user_is_going ? 'Going' : 'Join';
+		});
+	}
+
+	$scope.toggleFollow = function(){
+		ProfileService.toggleFollow($stateParams.userId).then(function(data){
+			if(data.can_see_events == false){
+				$scope.user_info.can_see_events = false;
+			}
+			if(data.status == "unfollowed"){
+				data.status = "follow";
+			}
+			data.status = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+			$scope.user_info.status = data.status;
 		});
 	}
 });

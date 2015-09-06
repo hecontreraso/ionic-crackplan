@@ -7,6 +7,12 @@ angular.module('ProfileService', [])
 			.then(function(response){
 				return response.data;
 			});
+		},
+		toggleFollow: function(profile_id){
+			return $http.post(SERVER_URL + '/profile/' + profile_id + '/toggle_follow')
+			.then(function(response){
+				return response.data;
+			});
 		}
 	}
 });

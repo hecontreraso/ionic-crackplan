@@ -13,6 +13,7 @@ angular.module('crackplan',
     'EventsController',
     'ProfileController',
     'AddEventController',
+    'NotificationsController',
     'OptionsController',
     'EditProfileController',
     'ChangePasswordController',
@@ -93,6 +94,15 @@ angular.module('crackplan',
       'tab-add-event': {
         templateUrl: 'templates/add-event.html',
         controller: 'AddEventCtrl'
+      }
+    }
+  })
+  .state('tab.notifications', {
+    url: '/notifications',
+    views: {
+      'tab-notifications': {
+        templateUrl: 'templates/tab-notifications.html',
+        controller: 'NotificationsCtrl'
       }
     }
   })

@@ -1,0 +1,27 @@
+<ion-view view-title="Notifications">
+
+  <ion-nav-bar class="bar-positive"> 
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    
+    <ion-list>
+      <a class="item notifications-item-nofitication" ng-repeat="notification in notifications" href="{{notification.link}}">
+        <img ng-src="{{notification.owner.image}}" class="img-notification img-user">
+        <h2>{{notification.owner.name}}</h2>
+        <p>{{notification.text}}</p>
+        <img ng-show="{{notification.show_event_image}}" ng-src="{{notification.event_image}}" class="img-notification img-event">
+
+        <div ng-if="notification.type == 'follow.requested'">
+          <button class="button button-small button-stable" ng-click="acceptRequest(notification.owner.id)">
+            Accept
+          </button>
+          <button class="button button-small button-stable" ng-click="declineRequest(notification.owner.id)">
+            Decline
+          </button>
+        </div>
+      </a>
+    </ion-list>
+
+  </ion-content>
+</ion-view>
