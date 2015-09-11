@@ -30,9 +30,9 @@ angular.module('crackplan',
   });
 })
 
-.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+.run(function ($ionicPlatform, $rootScope, $state, AuthService) {
+
   $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
-    console.log('checking if auth');
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'login') {
         event.preventDefault();

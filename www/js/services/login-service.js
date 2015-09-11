@@ -10,7 +10,7 @@ angular.module('LoginService', [])
   function loadUserCredentials() {
     var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
     if (token) {
-      useCredentials(token);
+      useCredentials({auth_token: token});
     }
   }
 
@@ -30,7 +30,7 @@ angular.module('LoginService', [])
 
     isAuthenticated = true;
     authToken = data.auth_token;
- 
+
     // Set the token as header for your requests!
     $http.defaults.headers.common.Authorization = 'Token token=' + data.auth_token;
   }
@@ -67,7 +67,8 @@ angular.module('LoginService', [])
     login: login,
     logout: logout,
     isAuthenticated: function() {return isAuthenticated;},
-    user: function() {return user;}
+    user: function() {return user;},
+    loadUserCredentials: loadUserCredentials
   };
 })
 
