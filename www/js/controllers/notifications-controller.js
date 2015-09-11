@@ -11,7 +11,7 @@ angular.module('NotificationsController', ['NotificationsService'])
   function formatData(notifications){
     notifications.forEach(function(notification){
       if(notification.owner.image === null)
-        notification.owner.image = '../img/profile_missing.png';
+        notification.owner.image = 'img/profile_missing.png';
 
       notification.link = '#/tab/profile/' + notification.owner.id;
 
@@ -32,7 +32,7 @@ angular.module('NotificationsController', ['NotificationsService'])
             notification.event_image = notification.parameters.event_image;
           }
           else{
-            notification.event_image = '../img/event_missing.jpg';
+            notification.event_image = 'img/event_missing.jpg';
           }
           break;
       }

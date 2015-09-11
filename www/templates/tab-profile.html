@@ -4,13 +4,12 @@
   </ion-nav-bar>
 
   <ion-content padding="true">
-
-    <a class="item item-avatar" href="#">
-      <img ng-src="{{user_info.image}}">
+    <div class="item item-thumbnail-left">
+      <img ng-src="{{user_info.image}}" ng-click="showImageOptions()" class="img-avatar">
       <h2>{{user_info.name}}</h2>
-      <a ng-if="is_same_profile" class="button icon-left" nav-transition="android" href="#/edit-profile">Edit profile</a>
-      <a ng-if="!is_same_profile" class="button icon-left" nav-transition="android" ng-click="toggleFollow()">{{user_info.status}}</a>
-    </a>
+      <a ng-if="is_same_profile" class="button button-small button-block" nav-transition="android" href="#/edit-profile">Edit profile</a>
+      <a ng-if="!is_same_profile" class="button button-small button-block" nav-transition="android" ng-click="toggleFollow()">{{user_info.status}}</a>
+    </div>
 
     <div class="card">
       <div ng-if="user_info.bio" class="item item-text-wrap">
@@ -25,12 +24,12 @@
         <div class="col">
           <span class="profile-big-number">{{user_info.followers_qty}}</span>
           <br>
-          followers
+          Followers
         </div>
         <div class="col">
           <span class="profile-big-number">{{user_info.following_qty}}</span>
           <br>
-          following
+          Following
         </div>
       </div>
     </div>
@@ -54,15 +53,15 @@
           <p>{{event.details}}</p>
           <span class="event-details">
             <div ng-if="event.assistants.length == 1">
-              <a href='#/tab/profile/{{assistant.id}}'>{{event.assistants[0].name}}</a> is going              
+              <a href='#/tab/profile/{{event.assistants[0].id}}'>{{event.assistants[0].name}}</a> is going              
             </div>
             <div ng-if="event.assistants.length > 1 && event.assistants.length <= limit_assistants_shown">
               <span ng-repeat="assistant in event.all_but_last_two_assistants">
                 <a href='#/tab/profile/{{assistant.id}}'>{{assistant.name}}</a>, 
               </span>
-              <a href='#/tab/profile/{{last_two_assistants[0].id}}'>{{event.last_two_assistants[0].name}}</a>
+              <a href='#/tab/profile/{{event.last_two_assistants[0].id}}'>{{event.last_two_assistants[0].name}}</a>
               and
-              <a href='#/tab/profile/{{last_two_assistants[1].id}}'>{{event.last_two_assistants[1].name}}</a>
+              <a href='#/tab/profile/{{event.last_two_assistants[1].id}}'>{{event.last_two_assistants[1].name}}</a>
               are going       
             </div>
             <div ng-if="event.assistants.length > limit_assistants_shown">

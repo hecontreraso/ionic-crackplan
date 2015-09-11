@@ -31,10 +31,10 @@ angular.module('EventsController', ['EventService'])
 	function formatEvents(events){
 		events.forEach(function(event){
 			if(event.feed_creator.image === null){
-				event.feed_creator.image = '../img/profile_missing.png';
+				event.feed_creator.image = 'img/profile_missing.png';
 			}
 			if(event.image === null){
-				event.image = '../img/event_missing.jpg';
+				event.image = 'img/event_missing.jpg';
 			}
 			event.going_or_join_label = event.user_is_going ? 'Going' : 'Join';
 
@@ -45,9 +45,7 @@ angular.module('EventsController', ['EventService'])
 	    event.showed_assistants = event.assistants.slice(0, $scope.limit_assistants_shown);
 	    event.hidden_assistants_qty = event.assistants.length - $scope.limit_assistants_shown;
 	    // event.hidden_assistants = event.assistants.slice(limit_assistants_shown, total_assistants - $scope.limit_assistants_shown);
-
 		});
 		return events;
 	}
-
 });

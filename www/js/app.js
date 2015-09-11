@@ -1,10 +1,3 @@
-// Ionic Crackplan App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'crackplan' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'crackplan.services' is found in services.js
-// 'crackplan.controllers' is found in controllers.js
 angular.module('crackplan',
   [
     'ionic',
@@ -17,8 +10,8 @@ angular.module('crackplan',
     'OptionsController',
     'EditProfileController',
     'ChangePasswordController',
-    'crackplan.services',
-    'ngOpenFB'
+    'ngOpenFB',
+    'ngCordova'
   ]
 )
 
@@ -29,7 +22,6 @@ angular.module('crackplan',
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -40,6 +32,7 @@ angular.module('crackplan',
 
 .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
   $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
+    console.log('checking if auth');
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'login') {
         event.preventDefault();

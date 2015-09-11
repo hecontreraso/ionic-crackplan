@@ -5,7 +5,5 @@
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
   "dependencies": {
-    "angular-mocks": "~1.4.4",
-    "ionic-timepicker": "~0.3.0"
   }
 }

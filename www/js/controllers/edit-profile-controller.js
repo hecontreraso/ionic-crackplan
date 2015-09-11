@@ -14,8 +14,6 @@ angular.module('EditProfileController', [])
       }
     )
     .success(function(){
-			// Actualizar objeto user en app controller
-
       var alertPopup = $ionicPopup.alert({
         title: 'Success!',
         template: 'Profile updated succesfully!'

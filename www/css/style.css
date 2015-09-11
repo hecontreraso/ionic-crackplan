@@ -6,7 +6,11 @@
 .event-time-ago{ float: right;}
 .event-details{ font-size: 14px; }
 
-
+.item-thumbnail-left{
+  padding-bottom: 0;
+  padding-top: 18px;
+}
+.img-avatar{ border-radius: 50%; }
 .profile-big-number{ font-size: 30px; }
 .profile-img-lock{
 	margin: auto;

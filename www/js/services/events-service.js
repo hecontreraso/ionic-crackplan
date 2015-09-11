@@ -25,6 +25,9 @@ angular.module('EventService', [])
 	        time: event.time,
 	        where: event.where,
 	        image: event.image
+	      },
+	      {
+	      	headers: { 'Content-Type': 'multipart/form-data' }
 	      }
 	    )
 	    .success(function(){

@@ -29,15 +29,17 @@
 
       <label class="item item-input">
         <span class="input-label">Image</span>
-        <button class="button button-block button-positive" ng-click="addMedia()">
-        Add image
-        </button>
+        <input type="file" accept="image/*" ng-model="event.image">
+        <!-- <button class="button button-block button-positive" ng-click="addMedia()"> -->
+        <!-- Add image -->
+        <!-- </button> -->
       </label>
 
       <button class="button button-block button-positive" ng-click="createEvent(event)">
         Update profile
       </button>
-
+{{event.where}}
+{{event.image}}
     </ion-list>
   </ion-content>
 </ion-view>
