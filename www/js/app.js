@@ -2,6 +2,7 @@ angular.module('crackplan',
   [
     'ionic',
     'AppController',
+    'UserService',
     'LoginController',
     'EventsController',
     'ProfileController',
@@ -14,6 +15,13 @@ angular.module('crackplan',
     'ngCordova'
   ]
 )
+
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.backButton.text('Go Back').icon('ion-chevron-left');
+  $ionicConfigProvider.navBar.alignTitle("center");
+  $ionicConfigProvider.tabs.position("bottom");
+  $ionicConfigProvider.tabs.style("standard");
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,7 +39,6 @@ angular.module('crackplan',
 })
 
 .run(function ($ionicPlatform, $rootScope, $state, AuthService) {
-
   $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'login') {
@@ -73,7 +80,7 @@ angular.module('crackplan',
     }
   })
   .state('tab.profile', {
-    url: '/profile/:userId',
+    url: '/profile/:userIdInUrl',
     views: {
       'tab-profile': {
         templateUrl: 'templates/tab-profile.html',

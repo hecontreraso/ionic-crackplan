@@ -13,7 +13,6 @@ angular.module('EventsController', ['EventService'])
       }
 
       events = formatEvents(events);
-			console.log(events[0]);
 
 			$scope.events = $scope.events.concat(events);
 			event_index += events.length;

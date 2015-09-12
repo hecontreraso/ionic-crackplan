@@ -10,12 +10,12 @@
     <ion-list>
 	    <label class="item item-input">
         <i class="icon ion-android-person placeholder-icon"></i>
-        <input type="text" placeholder="Name" ng-model="currentUser.fullName">
+        <input type="text" placeholder="Name" ng-model="editProfileUser.name">
       </label>
 
 	    <label class="item item-input">
         <i class="icon ion-chatbox-working placeholder-icon"></i>
-        <textarea placeholder="Bio" ng-model="currentUser.bio"></textarea>
+        <textarea placeholder="Bio" ng-model="editProfileUser.bio"></textarea>
       </label>
 
 			<div class="item item-divider">
@@ -23,12 +23,12 @@
 		  </div>
 	    <label class="item item-input">
         <i class="icon ion-ios-email placeholder-icon"></i>
-        <input type="email" placeholder="Email" ng-model="currentUser.email">
+        <input type="email" placeholder="Email" ng-model="editProfileUser.email">
       </label>
 
       <label class="item item-input">
         <i class="icon ion-calendar placeholder-icon"></i>
-        <input type="date" placeholder="Birthdate" ng-model="currentUser.birthdate">
+        <input type="date" placeholder="Birthdate" ng-model="editProfileUser.birthdate">
 			</label>
 
 			<label class="item item-input item-select">
@@ -36,13 +36,13 @@
 		    <div class="input-label">
 	        &nbsp;
 		    </div>
-		    <select ng-model="currentUser.gender">
+		    <select ng-model="editProfileUser.gender">
 	        <option>Not specified</option>
 	        <option>Male</option>
 	        <option>Female</option>
 		    </select>
 			</label>
-      <button class="button button-block button-positive" ng-click="saveProfile(currentUser)">
+      <button class="button button-block button-positive" ng-click="saveProfile()">
         Update profile
       </button>
     </ion-list>

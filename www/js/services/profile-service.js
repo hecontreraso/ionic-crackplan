@@ -5,6 +5,9 @@ angular.module('ProfileService', [])
 		getProfileData: function(profile_id){
 			return $http.get(SERVER_URL + '/profile/' + profile_id)
 			.then(function(response){
+				if(response.data.profile_data.image !== null){
+					response.data.profile_data.image += "?" + new Date().getTime();
+				}
 				return response.data;
 			});
 		},
@@ -22,20 +25,15 @@ angular.module('ProfileService', [])
 		    mimeType: "image/jpg",
 		    headers: { Authorization: $http.defaults.headers.common.Authorization }
 			};
-			console.log("cordovafiletransfer");
-			console.log($cordovaFileTransfer);
-			console.log('imageLocalURL:');
-			console.log(imageLocalURL);
 			return $cordovaFileTransfer.upload(SERVER_URL + '/addProfilePic', imageLocalURL, options, true)
 			.then(function(response) {
-				console.log("cordovafiletransfer response:");
-				console.log(response);
 				return response;
       });
 		},
 		removeProfilePic: function(){
 			return $http.post(SERVER_URL + '/removeProfilePic')
 			.then(function(response){
+				console.log(response);
 				return response.data;
 			});
 		}

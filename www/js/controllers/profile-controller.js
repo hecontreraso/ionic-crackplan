@@ -3,13 +3,16 @@ angular.module('ProfileController', ['ProfileService'])
 .controller('ProfileCtrl', function($http, $scope, $cordovaCamera, $cordovaImagePicker,
 	$timeout, $ionicPopup, $stateParams, ProfileService, EventService) {
 
-	console.log("user ID: " + $stateParams.userId);
 	$scope.limit_assistants_shown = 5;
 	$scope.is_private = false;
 	var imageOptionsPopup = undefined;
 
   $scope.$on('$ionicView.enter', function(e) {
-		ProfileService.getProfileData($stateParams.userId).then(function(data){
+  	
+  	console.log('$stateParams:');
+  	console.log($stateParams);
+
+		ProfileService.getProfileData($stateParams.userIdInUrl).then(function(data){
 			$scope.user_info = formatUserData(data.profile_data);
 			if(data.events === "private"){
 				$scope.is_private = true;
@@ -17,13 +20,13 @@ angular.module('ProfileController', ['ProfileService'])
 			else{
 				$scope.events = formatEvents(data.events);
 			}
-			console.log($scope.user_info);
 		});
   });
 
 	function formatUserData(user){
-		if(user.image === null){user.image = 'img/profile_missing.png';}
-		$scope.is_same_profile = ($scope.currentUser.id == $stateParams.userId) ? true : false;
+		console.log(user);
+		if(user.image === null){user.image = 'img/profile_missing.png' + "?" + new Date().getTime();}
+		$scope.is_same_profile = ($scope.userId == $stateParams.userIdInUrl) ? true : false;
 		if(user.status == "unfollowed") {user.status = "follow";}
 		if(user.status) {user.status = user.status.charAt(0).toUpperCase() + user.status.slice(1);}
 
@@ -55,7 +58,7 @@ angular.module('ProfileController', ['ProfileService'])
 	};
 
 	$scope.toggleFollow = function(){
-		ProfileService.toggleFollow($stateParams.userId).then(function(data){
+		ProfileService.toggleFollow($stateParams.userIdInUrl).then(function(data){
 			if(data.can_see_events == false) $scope.user_info.can_see_events = false;
 			if(data.status == "unfollowed") data.status = "follow";
 			data.status = data.status.charAt(0).toUpperCase() + data.status.slice(1);
@@ -85,7 +88,7 @@ angular.module('ProfileController', ['ProfileService'])
 
   $scope.removeProfilePic = function(){
   	ProfileService.removeProfilePic().then(function(data){
-	  	$scope.user_info.image = '/img/profile_missing.png';
+	  	$scope.user_info.image = 'img/profile_missing.png' + "?" + new Date().getTime();
 	    imageOptionsPopup.close();
   	});
   };
@@ -107,14 +110,14 @@ angular.module('ProfileController', ['ProfileService'])
 
 	$scope.choosePicture = function(){
 		var options = {
-	   	maximumImagesCount: 2,
+	   	maximumImagesCount: 1,
 	   	width: 600,
 	   	height: 600,
 	   	quality: 80
 	  };
 	  $cordovaImagePicker.getPictures(options)
-	    .then(function (results) {
-					addProfilePic(imageData);
+	    .then(function (imageData) {
+				addProfilePic(imageData[0]);
 	    }, function(error) {
       	var alertPopup = $ionicPopup.alert({
 	        title: 'ERROR',
@@ -132,6 +135,7 @@ angular.module('ProfileController', ['ProfileService'])
 	        template: 'Image uploaded succesfully!'
 	      });
       }, function(err) {
+      	console.log(err);
 	      var alertPopup = $ionicPopup.alert({
 	        title: 'ERROR!',
 	        template: JSON.stringify(err)

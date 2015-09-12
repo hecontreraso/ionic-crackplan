@@ -1,8 +1,8 @@
 angular.module('ChangePasswordController', [])
 
-.controller('ChangePasswordCtrl', function($scope, $state, $http, $ionicPopup, AuthService, SERVER_URL) {
+.controller('ChangePasswordCtrl', function($scope, $state, $ionicPopup, UserService) {
 
-  $scope.$on("$ionicView.beforeEnter", function(event) {
+  $scope.$on("$ionicView.enter", function(event) {
     $scope.user = {
       oldPw: '',
       newPw: '',
@@ -17,24 +17,25 @@ angular.module('ChangePasswordController', [])
         template: "The entered password doesn't match!"
       });
     }
-    $http.post(SERVER_URL + '/change_password',
-      { password: user.oldPw, new_password: user.newPw }
-    )
-    .success(function(){
-      $scope.user = {
-        oldPw: '',
-        newPw: '',
-        newPwConfirmation: ''
-      };
 
-      var alertPopup = $ionicPopup.alert({
-        title: 'Success!',
-        template: 'Password changed succesfully!'
+    console.log("calling service");
+    console.log(user);
+
+    UserService.changePassword(user.oldPw, user.newPw)
+      .then(function(){
+        $scope.user = {
+          oldPw: '',
+          newPw: '',
+          newPwConfirmation: ''
+        };
+
+        var alertPopup = $ionicPopup.alert({
+          title: 'Success!',
+          template: 'Password changed succesfully!'
+        });
+      }, function(err){
+        console.log("Error making the request");
+        console.log(err);
       });
-    })
-    .error(function(data){
-      console.log("Error making the request");
-      console.log(data);
-    });
   };
 });

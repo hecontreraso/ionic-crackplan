@@ -1,16 +1,17 @@
 angular.module('OptionsController', [])
 
-.controller('OptionsCtrl', function($scope, $state, $http, $ionicPopup, AuthService, SERVER_URL) {
-  $scope.changePrivacy = function() {
+.controller('OptionsCtrl', function($scope, $state, $ionicPopup, UserService, AuthService) {
 
-    $http.post(SERVER_URL + '/change_privacy', 
-      { is_private: $scope.currentUser.is_private }
-    )
-    .success(function(){})
-    .error(function(data){
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.privacy = UserService.loadPrivacy();
+  });
+
+  $scope.changePrivacy = function() {
+    UserService.changePrivacy($scope.privacy).then(function() {
+    }, function(err) {
       var alertPopup = $ionicPopup.alert({
-        title: 'Success!',
-        template: 'Error changing the privacy!'
+        title: 'Error!',
+        template: err
       });
     });
   };
@@ -18,5 +19,6 @@ angular.module('OptionsController', [])
   $scope.logout = function() {
     AuthService.logout();
     $state.go('login');
+    $scope.setUserId(undefined);
   };
 });

@@ -1,46 +1,48 @@
 angular.module('LoginService', [])
  
-.service('AuthService', function($q, $http, SERVER_URL) {
+.service('AuthService', function($q, $http, SERVER_URL, $ionicHistory) {
 
-  var LOCAL_TOKEN_KEY = 'yourTokenKey';
-  var user = {};
   var isAuthenticated = false;
-  var authToken;
+  var userId = '';
+  var authToken = '';
  
   function loadUserCredentials() {
-    var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
-    if (token) {
-      useCredentials({auth_token: token});
-    }
+    var auth_token = window.localStorage.getItem('TOKEN_KEY')
+    var id = window.localStorage.getItem('id');
+    
+    if (auth_token) setUserCredentials(id, auth_token);
   }
 
   function storeUserCredentials(data) {
-    window.localStorage.setItem(LOCAL_TOKEN_KEY, data.auth_token);
-    useCredentials(data);
+    window.localStorage.setItem('TOKEN_KEY', data.auth_token);
+
+    window.localStorage.setItem('id', data.id);
+    window.localStorage.setItem('email', data.email);
+    window.localStorage.setItem('name', data.name);
+    window.localStorage.setItem('birthdate', data.birthdate);
+    window.localStorage.setItem('gender', data.gender);
+    window.localStorage.setItem('is_private', data.is_private);
+    window.localStorage.setItem('bio', data.bio);
+
+    setUserCredentials(data.id, data.auth_token);
   }
  
-  function useCredentials(data) {
-    user.id = data.id;
-    user.email = data.email;
-    user.fullName = data.fullName;
-    user.birthdate = new Date(data.birthdate);
-    user.gender = data.gender;
-    user.is_private = data.is_private;
-    user.bio = data.bio;
-
+  function setUserCredentials(id, auth_token) {
+    userId = id;
     isAuthenticated = true;
-    authToken = data.auth_token;
+    authToken = auth_token;
 
-    // Set the token as header for your requests!
-    $http.defaults.headers.common.Authorization = 'Token token=' + data.auth_token;
+    // Set the token as header for requests
+    $http.defaults.headers.common.Authorization = 'Token token=' + auth_token;
   }
 
   function destroyUserCredentials() {
     authToken = undefined;
-    user = {};
+    userId = undefined;
     isAuthenticated = false;
     $http.defaults.headers.common.Authorization = undefined;
-    window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+    window.localStorage.clear();
+    $ionicHistory.clearCache();
   }
 
   var login = function(email, pw) {
@@ -60,15 +62,14 @@ angular.module('LoginService', [])
   var logout = function() {
     destroyUserCredentials();
   };
- 
+
   loadUserCredentials();
  
   return {
     login: login,
     logout: logout,
-    isAuthenticated: function() {return isAuthenticated;},
-    user: function() {return user;},
-    loadUserCredentials: loadUserCredentials
+    userId: function() {return userId;},
+    isAuthenticated: function() {return isAuthenticated;}
   };
 })
 

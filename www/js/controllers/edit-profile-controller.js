@@ -1,27 +1,23 @@
 angular.module('EditProfileController', [])
 
-.controller('EditProfileCtrl', function($scope, $state, $ionicPopup, $http, AuthService, SERVER_URL) {
+.controller('EditProfileCtrl', function($scope, $state, $ionicPopup, $http, AuthService, SERVER_URL, UserService) {
 
-  $scope.saveProfile = function(user) {
-  	console.log(user);
-    $http.patch(SERVER_URL + '/edit_profile', 
-      {
-        email: user.email,
-        name: user.fullName,
-        birthdate: user.birthdate,
-        gender: user.gender,
-        bio: user.bio
-      }
-    )
-    .success(function(){
-      var alertPopup = $ionicPopup.alert({
-        title: 'Success!',
-        template: 'Profile updated succesfully!'
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.editProfileUser = UserService.getlocalUserData();
+  });
+
+  $scope.saveProfile = function() {
+    UserService.updateProfile($scope.editProfileUser).then(function(){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Success!',
+          template: 'Profile updated succesfully!'
+        });
+      }, 
+      function(err) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Update profile failed!',
+          template: err
+        });
       });
-    })
-    .error(function(data){
-      console.log("Error making the request");
-      console.log(user);
-    });
   };
 });
