@@ -15,4 +15,8 @@ angular.module('AppController', [])
     $scope.userId = userId;
   };
 
+  $scope.goToUserProfile = function(){
+    $state.go('tab.profile', { userIdInUrl: AuthService.userId() });
+  };
+
 });

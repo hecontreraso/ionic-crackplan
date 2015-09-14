@@ -8,10 +8,6 @@ angular.module('ProfileController', ['ProfileService'])
 	var imageOptionsPopup = undefined;
 
   $scope.$on('$ionicView.enter', function(e) {
-  	
-  	console.log('$stateParams:');
-  	console.log($stateParams);
-
 		ProfileService.getProfileData($stateParams.userIdInUrl).then(function(data){
 			$scope.user_info = formatUserData(data.profile_data);
 			if(data.events === "private"){

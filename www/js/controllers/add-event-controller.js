@@ -1,7 +1,7 @@
 angular.module('AddEventController', ['EventService', 'ngMessages'])
 
 .controller('AddEventCtrl', function(
-  $scope, EventService, $ionicPlatform, $ionicActionSheet, $ionicPopup, $cordovaCamera, $timeout
+  $scope, EventService, $ionicPlatform, $ionicActionSheet, $ionicPopup, $cordovaCamera, $cordovaImagePicker, $timeout
 ){
 
   $scope.event = {}; 
@@ -76,10 +76,17 @@ angular.module('AddEventController', ['EventService', 'ngMessages'])
       height: 600,
       quality: 80
     };
+    console.log("Entering image picker");
     $cordovaImagePicker.getPictures(options)
       .then(function (imageData) {
-        $scope.eventImage = imageData[0];
+        console.log('imageData');
+        console.log(imageData);
+        console.log('$scope.event.eventImage');
+        console.log($scope.event.eventImage);
+        $scope.event.eventImage = imageData[0];
       }, function(error) {
+        console.log('error');
+        console.log(error);
         var alertPopup = $ionicPopup.alert({
           title: 'ERROR',
           template: error
