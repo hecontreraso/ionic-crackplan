@@ -4,16 +4,9 @@ angular.module('AddEventController', ['EventService', 'ngMessages'])
   $scope, EventService, $ionicPlatform, $ionicActionSheet, $ionicPopup, $cordovaCamera, $timeout
 ){
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-  $scope.event = {};
-  // $scope.eventImage = '';
+  $scope.event = {}; 
   $scope.hours = [];
+  $scope.minDate = new Date(new Date().getTime() + 48 * 60 * 60 * 1000);
 
   for (var i = 5; i <= 23; i++){
     hour = i;
@@ -32,6 +25,7 @@ angular.module('AddEventController', ['EventService', 'ngMessages'])
     event.image = event.eventImage;
     console.log(event);
     EventService.createEvent(event).then(function(){
+      $scope.event = {};
       var alertPopup = $ionicPopup.alert({
         title: 'Success!',
         template: 'Event created succesfully!'
