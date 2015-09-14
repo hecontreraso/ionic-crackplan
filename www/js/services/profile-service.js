@@ -1,6 +1,6 @@
 angular.module('ProfileService', [])
 
-.factory('ProfileService', function($http, SERVER_URL, $ionicPopup, $cordovaFileTransfer){
+.factory('ProfileService', function($http, SERVER_URL, $cordovaFileTransfer){
 	return {
 		getProfileData: function(profile_id){
 			return $http.get(SERVER_URL + '/profile/' + profile_id)

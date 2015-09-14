@@ -35,4 +35,12 @@
 	left: 16px;
   border-radius: 50%;
 }
-.img-event{ right: 16px; }
+.img-event{ right: 16px; } /* For notifications page*/
+.img-event-full{ width: 100%; }
+
+.has-errors { border-bottom: 3px solid #FFCCCC; }
+.no-errors { border-bottom: 3px solid #B3D9B3; }
+.button-disabled{
+  background-color: lightgray !important;
+  border: none !important;
+}

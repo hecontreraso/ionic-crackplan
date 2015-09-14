@@ -5,41 +5,59 @@
 
   <ion-content padding="true">
     <ion-list>
-      <label class="item item-input">
-        <textarea placeholder="Event description" ng-model="event.details"></textarea>
-      </label>
+      <form name="addEventForm" ng-submit="addEventForm.$valid && createEvent(event)" novalidate>
+        <label
+          class="item item-input"
+          ng-class="{'has-errors' : addEventForm.description.$invalid, 'no-errors' : addEventForm.description.$valid}">
+          <textarea
+            name="description"
+            placeholder="Event description"
+            ng-model="event.details"
+            placeholder="Required"
+            ng-minlength="5"
+            ng-maxlength="500"
+            required>
+          </textarea>
+        </label>
 
-      <label class="item item-input">
-        <span class="input-label">Date</span>
-        <input type="date" ng-model="event.date">
-      </label>
+        <label
+          class="item item-input"
+          ng-class="{'has-errors' : addEventForm.date.$invalid, 'no-errors' : addEventForm.date.$valid}">
+          <span class="input-label" required>Date</span>
+          <input name="date" type="date" ng-model="event.date" required>
+        </label>
 
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Time
-        </div>
-        <select ng-model="event.time" ng-options="hour for hour in hours">
-        </select>
-      </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Time (Optional)
+          </div>
+          <select ng-model="event.time" ng-options="hour for hour in hours">
+          </select>
+        </label>
 
-      <label class="item item-input">
-        <span class="input-label">Location</span>
-        <input type="text" ng-model="event.where">
-      </label>
+        <label
+          class="item item-input"
+          ng-class="{'has-errors' : addEventForm.location.$invalid, 'no-errors' : addEventForm.location.$valid}">
+          <span class="input-label">Location</span>
+          <input name="location" type="text" ng-model="event.where" ng-minlength="5" ng-maxlength="150" placeholder="Required" required>
+        </label>
 
-      <label class="item item-input">
-        <span class="input-label">Image</span>
-        <input type="file" accept="image/*" ng-model="event.image">
-        <!-- <button class="button button-block button-positive" ng-click="addMedia()"> -->
-        <!-- Add image -->
-        <!-- </button> -->
-      </label>
+        <label class="item item-input">
+          <span class="input-label">Image (Optional)</span>
+          <button type="button" class="button button-block button-positive" ng-click="addImage()">
+            Add image
+          </button>
+        </label>
 
-      <button class="button button-block button-positive" ng-click="createEvent(event)">
-        Update profile
-      </button>
-{{event.where}}
-{{event.image}}
+        <img ng-show="event.eventImage" ng-src="{{event.eventImage}}" class="img-event-full">
+
+        <button
+          type="submit"
+          class="button button-block button-positive"
+          ng-class="{'button-disabled' : !addEventForm.$valid}">
+          Create event
+        </button>
+      </form>
     </ion-list>
   </ion-content>
 </ion-view>

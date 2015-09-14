@@ -73,7 +73,6 @@ angular.module('ProfileController', ['ProfileService'])
     template += "<a class='item' ng-click='removeProfilePic()'><span>Remove current photo</span></a>";
     template += "<a class='item' ng-click='takePicture()'><span>Take photo</span></a>";
     template += "<a class='item' ng-click='choosePicture()'><span>Choose from library</span></a>";
-    // template += "<a class='item'><span>Import from Facebook</span></a>";
     template += "</div>";
 
     imageOptionsPopup = $ionicPopup.show({
@@ -96,7 +95,7 @@ angular.module('ProfileController', ['ProfileService'])
 	$scope.takePicture = function() {
 		var options = {
 			destinationType : Camera.DestinationType.FILE_URI,
-			sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+			sourceType : Camera.PictureSourceType.CAMERA,
 			allowEdit : false,
 			encodingType: Camera.EncodingType.JPEG,
 			popoverOptions: CameraPopoverOptions,

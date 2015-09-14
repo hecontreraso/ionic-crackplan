@@ -7,44 +7,55 @@
   </ion-nav-bar>
 
   <ion-content padding="true">
-    <ion-list>
-	    <label class="item item-input">
+    <form name="editProfileForm" ng-submit="editProfileForm.$valid && saveProfile()" novalidate>
+	    <label
+        class="item item-input"
+        ng-class="{'has-errors' : editProfileForm.name.$invalid, 'no-errors' : editProfileForm.name.$valid}">
         <i class="icon ion-android-person placeholder-icon"></i>
-        <input type="text" placeholder="Name" ng-model="editProfileUser.name">
+        <input name="name" type="text" placeholder="Name" ng-model="user.name" required>
       </label>
 
 	    <label class="item item-input">
         <i class="icon ion-chatbox-working placeholder-icon"></i>
-        <textarea placeholder="Bio" ng-model="editProfileUser.bio"></textarea>
+        <textarea placeholder="Bio" ng-model="user.bio"></textarea>
       </label>
 
 			<div class="item item-divider">
 		    Private information
 		  </div>
-	    <label class="item item-input">
+	    <label 
+        ng-class="{'has-errors' : editProfileForm.email.$invalid, 'no-errors' : editProfileForm.email.$valid}"
+        class="item item-input">
         <i class="icon ion-ios-email placeholder-icon"></i>
-        <input type="email" placeholder="Email" ng-model="editProfileUser.email">
+        <input name="email" type="email" placeholder="Email" ng-model="user.email" required>
       </label>
 
-      <label class="item item-input">
+      <label
+        class="item item-input"
+        ng-class="{'has-errors' : editProfileForm.birthdate.$invalid, 'no-errors' : editProfileForm.birthdate.$valid}">
         <i class="icon ion-calendar placeholder-icon"></i>
-        <input type="date" placeholder="Birthdate" ng-model="editProfileUser.birthdate">
+        <input name="birthdate" type="date" placeholder="Birthdate" ng-model="user.birthdate" required>
 			</label>
 
-			<label class="item item-input item-select">
+			<label
+        class="item item-input item-select"
+        ng-class="{'has-errors' : editProfileForm.gender.$invalid, 'no-errors' : editProfileForm.gender.$valid}">
         <i class="icon ion-calendar placeholder-icon"></i>
 		    <div class="input-label">
-	        &nbsp;
+	        &nbsp;Gender
 		    </div>
-		    <select ng-model="editProfileUser.gender">
-	        <option>Not specified</option>
+		    <select name="gender" ng-model="user.gender" required>
+	        <option></option>
 	        <option>Male</option>
 	        <option>Female</option>
 		    </select>
 			</label>
-      <button class="button button-block button-positive" ng-click="saveProfile()">
+      <button
+        type="submit"
+        class="button button-block button-positive"
+        ng-class="{'button-disabled' : !editProfileForm.$valid}">
         Update profile
       </button>
-    </ion-list>
+    </form>
   </ion-content>
 </ion-view>
